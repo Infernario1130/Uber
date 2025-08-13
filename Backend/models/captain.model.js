@@ -7,7 +7,7 @@ const captainSchema = new mongoose.Schema({
     firstName: {
         type: String,
         required: true,
-        minlength: [4,"First name must have atleast 3 characteres."]
+        minlength: [4,"First name must have atleast 4 characteres."]
     } , lastName: {
         type: String,
         minlength: [4,"Last name must have atleast 4 characters."]
@@ -18,8 +18,8 @@ const captainSchema = new mongoose.Schema({
         minlength: [5, "Email must have atleast 5 characters."]
     } , socketId: {
         type: String,
-
     } , status: {
+        type:String,
         enum: ["active","inactive"],
         default: "inactive"
     } , vehicle : {
