@@ -165,4 +165,43 @@ Registers a new captain. The endpoint validates incoming data, hashes the passwo
     }
     // ... additional captain fields ...
   }
+}...
+## GET /captain/profile
+
+**Description:**  
+Returns the authenticated captain’s profile details.  
+**Authentication:** Required (JWT).  
+**Status Codes:**  
+- **200 OK:** Returns the captain's profile details.  
+- **401 Unauthorized:** Invalid or missing token.
+
+**Example Successful Response (200):**  
+```json
+{
+  "captain": {
+    "firstName": "Alice",
+    "lastName": "Smith",
+    "email": "alice.smith@example.com",
+    "vehicle": {
+      "color": "red",
+      "plate": "XYZ123",
+      "capacity": 4,
+      "vehicleType": "car"
+    }
+    // ... additional captain fields ...
+  }
+}
+
+GET /captain/logout
+Description:
+Logs out the captain by invalidating the current JWT token.
+Authentication: Required (JWT).
+Status Codes:
+
+200 OK: Successfully logged out.
+401 Unauthorized: Invalid or missing token.
+Example Successful Response (200):
+
+{
+  "message": "Logged out"
 }

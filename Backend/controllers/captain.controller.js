@@ -1,6 +1,7 @@
 const captainModel = require("../models/captain.model");
 const { validationResult } = require("express-validator");
 const captainService = require("../services/captain.service")
+const blockedTokenModel = require("../models/blockedToken.model")
 
 module.exports.registerCaptain = async function(req,res,next) {
     const errors = validationResult(req)
@@ -82,3 +83,19 @@ module.exports.loginCaptain = async function(req,res,next) {
     })
 }
 
+module.exports.getCaptainProfile = async function(req,res,next) {
+    return res.status(201).json(req.captain)
+}
+
+module.exports.logoutCaptain = async function(req,res,next) {
+    res.clearCookie("token");
+    const token = req.cookies.token || req.headers.authorization.split(" ")[1];;
+
+    await blockedTokenModel.create({
+        token
+    })
+
+    res.status(200).json({
+        message: "Logged out"
+    })
+}
