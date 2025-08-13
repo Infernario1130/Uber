@@ -37,7 +37,48 @@ module.exports.registerCaptain = async function(req,res,next) {
 
     const token = await captain.generateAuthToken()
 
+    res.cookie("token", token)
+
     res.status(401).json({
         token,captain
     })
 }
+
+module.exports.loginCaptain = async function(req,res,next) {
+    const errors = validationResult(req);
+
+    if(!errors.isEmpty()) {
+        return res.status(401).json({
+            errors: errors.array()
+        })
+    }
+
+    const {email,password} = req.body;
+
+    const captain = await captainModel.findOne({
+        email
+    }).select("+password");
+
+    if(!captain) {
+        return res.status(401).json({
+            error: "Invalid email."
+        })
+    }
+
+    const isMatch = await captain.comparePassword(password);
+
+    if (!isMatch) {
+        return res.status(401).json({
+            error: "Invalid email or password."
+        })
+    }
+
+    const token = await captain.generateAuthToken();
+
+    res.cookie("token", token)
+
+    res.status(201).json({
+        token,captain
+    })
+}
+

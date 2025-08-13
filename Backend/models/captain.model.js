@@ -16,7 +16,12 @@ const captainSchema = new mongoose.Schema({
         required: true,
         unique: true,
         minlength: [5, "Email must have atleast 5 characters."]
-    } , socketId: {
+    }, password: {
+        type: String,
+        required: true,
+        minlength: [6, "Password must be at least 6 characters long"],
+        select: false // hide from queries unless explicitly included
+    }, socketId: {
         type: String,
     } , status: {
         type:String,

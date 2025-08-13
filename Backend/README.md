@@ -147,7 +147,10 @@ Registers a new captain. The endpoint validates incoming data, hashes the passwo
     "vehicleType": "car"
   }
 }
+```
 
+**Example Successful Response (201):**  
+```json
 {
   "token": "jwt_token_string",
   "captain": {
